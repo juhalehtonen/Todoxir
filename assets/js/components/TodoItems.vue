@@ -2,7 +2,7 @@
   <section>
 
     <div class="c-todo-items">
-      <todo-item v-for="todo in todos" :todo="todo"></todo-item>
+      <todo-item v-for="todo in sortedTodos" :todo="todo" v-bind:key="todo.name"></todo-item>
     </div>
 
     <div class="c-add-item">
@@ -38,17 +38,27 @@
     data () {
       return {
         newTodo: "",
-        error: null
+        error: null,
+        todoItems: this.todos
+      }
+    },
+
+    computed: {
+      sortedTodos() {
+        return this.todoItems.slice().reverse().sort(function(a, b){
+            return b.name.length-a.name.length
+        })
       }
     },
 
     methods: {
       addTodo () {
-        // Update todo
+        // Add todo
         this.$http.post(`todos`, {
           todo: { name: this.newTodo, complete: false }
         }).then((response) => {
           // Success
+          this.todoItems.push({ name: this.newTodo, complete: false })
           this.error = null
           this.newTodo = ''
         }, (response) => {
