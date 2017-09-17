@@ -19,3 +19,20 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+
+// Vendor
+import Vue from 'vue'
+import VueResource from 'vue-resource'
+
+// Components
+import TodoItems from './components/TodoItems.vue'
+
+Vue.use(VueResource)
+Vue.http.options.root = '/api'
+
+new Vue({
+  el: 'main',
+  components: {
+    TodoItems
+  }
+})
