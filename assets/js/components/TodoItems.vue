@@ -48,7 +48,7 @@
         }).then((response) => {
           // Success
           this.error = null
-          this.toggleEdit()
+          this.newTodo = ''
         }, (response) => {
           // Error
           return response.json()

@@ -1,6 +1,8 @@
 <template>
   <article class="c-todo-items__item" v-bind:class="{ complete: complete }">
 
+    <input type="checkbox" v-bind:checked="complete" v-on:click="toggleComplete" />
+
     <input
          v-if="is_editing"
          v-model.trim="name"
@@ -15,7 +17,7 @@
 
     <!-- Buttons -->
     <div class="c-todo-items__item__buttons">
-      <button v-if="is_editing" v-on:click="submit">Save</button>
+      <button v-if="is_editing" v-on:click="saveEdit">Save</button>
       <button v-on:click="toggleEdit">Toggle edit</button>
     </div>
 
@@ -46,14 +48,23 @@
         this.is_editing = !this.is_editing
       },
 
+      toggleComplete () {
+        this.complete = !this.complete
+        this.submit()
+      },
+
+      saveEdit () {
+        this.toggleEdit()
+        this.submit()
+      },
+
       submit () {
         // Update todo
         this.$http.patch(`todos/${this.todo.id}`, {
-          todo: { name: this.name }
+          todo: { name: this.name, complete: this.complete }
         }).then((response) => {
           // Success
           this.error = null
-          this.toggleEdit()
         }, (response) => {
           // Error
           return response.json()
