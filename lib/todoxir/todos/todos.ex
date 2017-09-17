@@ -9,7 +9,7 @@ defmodule Todoxir.Todos do
   alias Todoxir.Todos.Todo
 
   @doc """
-  Returns the list of todos.
+  Returns the list of todos, with incomplete todos being ordered first.
 
   ## Examples
 
@@ -18,7 +18,11 @@ defmodule Todoxir.Todos do
 
   """
   def list_todos do
-    Repo.all(Todo)
+    query = from t in Todo,
+      order_by: [t.complete, t.name]
+
+    Repo.all(query)
+    #Repo.all(Todo)
   end
 
   @doc """

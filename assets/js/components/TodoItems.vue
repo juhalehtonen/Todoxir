@@ -1,7 +1,14 @@
 <template>
-  <ul class="c-todo-items">
-    <todo-item v-for="todo in todos" :todo="todo"></todo-item>
-  </ul>
+  <section>
+
+    <div class="c-todo-items">
+      <todo-item v-for="todo in todos" :todo="todo"></todo-item>
+    </div>
+
+    <input v-model="newTodo" type="text" placeholder="New todo">
+    <button v-on:click="addTodo">Add Todo</button>
+
+  </section>
 </template>
 
 <script>
@@ -12,6 +19,7 @@
   */
   import TodoItem from './TodoItem.vue'
   export default {
+
     props: {
       todos: {
         type: Array,
@@ -20,8 +28,37 @@
         }
       }
     },
+
     components: {
       TodoItem
+    },
+
+    data () {
+      return {
+        newTodo: "",
+        error: null
+      }
+    },
+
+    methods: {
+      addTodo () {
+        // Update todo
+        this.$http.post(`todos`, {
+          todo: { name: this.newTodo, complete: false }
+        }).then((response) => {
+          // Success
+          this.error = null
+          this.toggleEdit()
+        }, (response) => {
+          // Error
+          return response.json()
+        }).then((data) => {
+          // Show error message
+          if (data) {
+            this.error = data.errors[0]
+          }
+        })
+      }
     }
   }
 </script>
@@ -32,5 +69,6 @@
     margin: 20px 0;
     padding: 20px;
     border: 1px solid #f0f0f0;
+    width: 100%;
   }
 </style>

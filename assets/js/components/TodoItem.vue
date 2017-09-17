@@ -1,33 +1,28 @@
 <template>
-  <div>
+  <article class="c-todo-items__item" v-bind:class="{ complete: complete }">
+
     <input
          v-if="is_editing"
          v-model.trim="name"
          @keyup.enter="submit"
          type="text"
-         class="c-todo-items__item"
-         v-bind:class="{ complete: complete }"
+         class="c-todo-items__item__input"
          placeholder="Todo"
     />
-    <li  v-else class="c-todo-items__item" v-bind:class="{ complete: complete }">
-      <p>{{name}}</p>
-    </li>
+    <p v-else class="c-todo-items__item__title" v-bind:class="{ complete: complete }">
+      {{name}}
+    </p>
 
-    <!-- Edit buttons -->
-    <nav v-if="is_editing">
-      <!-- Save button -->
-      <button v-on:click="submit">Save</button>
-      <!-- Cancel button -->
-      <button v-on:click="toggleEdit">Cancel</button>
-    </nav>
-    <div v-else>
-      <!-- Enter to edit mode -->
-      <button v-on:click="toggleEdit">Edit</button>
+    <!-- Buttons -->
+    <div class="c-todo-items__item__buttons">
+      <button v-if="is_editing" v-on:click="submit">Save</button>
+      <button v-on:click="toggleEdit">Toggle edit</button>
     </div>
 
     <!-- Errors -->
     <aside v-show="error">{{error}}</aside>
-  </div>
+
+  </article>
 </template>
 
 <script>
@@ -44,10 +39,6 @@
 
     props: ['todo'],
 
-    computed: {
-
-    },
-
     methods: {
       // Toggle Edit mode of a todo item
       toggleEdit () {
@@ -56,7 +47,7 @@
       },
 
       submit () {
-        // Update link
+        // Update todo
         this.$http.patch(`todos/${this.todo.id}`, {
           todo: { name: this.name }
         }).then((response) => {
@@ -70,9 +61,6 @@
           // Show error message
           if (data) {
             this.error = data.errors[0]
-            this.path = this.tempPath
-          } else {
-            this.tempPath = this.path
           }
         })
       }
@@ -83,9 +71,20 @@
 
 <style lang="sass">
   .c-todo-items__item {
-    list-style: none;
+    display: flex;
+
+    &__input,
+    &__title {
+      width: 65%;
+    }
+
+    &__buttons {
+      width: 35%;
+      text-align: right;
+    }
+
     &.complete {
-      opacity: 0.5;
+      opacity: 0.75;
     }
   }
 </style>
