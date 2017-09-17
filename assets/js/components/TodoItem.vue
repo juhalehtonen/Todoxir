@@ -13,7 +13,7 @@
     props: ['todo'],
 
     computed: {
-    
+
     },
 
     methods: {
