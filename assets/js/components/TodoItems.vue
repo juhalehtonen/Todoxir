@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul class="c-todo-items">
     <todo-item v-for="todo in todos" :todo="todo"></todo-item>
   </ul>
 </template>
@@ -25,3 +25,12 @@
     }
   }
 </script>
+
+<style lang="sass">
+  .c-todo-items {
+    padding-left: 0;
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #f0f0f0;
+  }
+</style>
