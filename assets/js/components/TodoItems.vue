@@ -2,7 +2,9 @@
   <section>
 
     <div class="c-todo-items">
+      <transition-group name="fade">
       <todo-item v-for="todo in sortedTodos" :todo="todo" v-bind:key="todo.name"></todo-item>
+      </transition-group>
     </div>
 
     <div class="c-add-item">

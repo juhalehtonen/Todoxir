@@ -97,10 +97,48 @@
 </script>
 
 <style lang="sass">
+  @keyframes fade-in {
+    0% {
+        opacity: 0.1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+  }
+    
+  @keyframes scale-out {
+      0% {
+          transform: scale(1);
+          opacity: 1;
+      }
+      100% {
+          transform: scale(0);
+          opacity: 0;
+      }
+  }
+
   .c-todo-items__item {
     display: flex;
     cursor: pointer;
     transition: 0.2s;
+
+    /* Transitions from Vue.js */
+    &.fade-enter-active {
+        box-shadow: 0px 0px 16px rgba(25,25,25,0.1);
+        z-index: 1;
+        animation: fade-in 0.2s;
+        animation-timing-function: ease-in;
+    }
+    &.fade-leave-active {
+        animation: scale-out 0.5s;
+    }
+    /* Transition for when items make space for a change in a list */
+    &.fade-move {
+        transition: transform 0.3s;
+    }
 
     &.complete {
       opacity: 0.5;
