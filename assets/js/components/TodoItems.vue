@@ -5,8 +5,10 @@
       <todo-item v-for="todo in todos" :todo="todo"></todo-item>
     </div>
 
-    <input v-model="newTodo" type="text" placeholder="New todo">
-    <button v-on:click="addTodo">Add Todo</button>
+    <div class="c-add-item">
+      <input v-model="newTodo" type="text" placeholder="New todo" @keyup.enter="addTodo">
+      <button v-on:click="addTodo">Add Todo</button>
+    </div>
 
   </section>
 </template>
@@ -70,5 +72,17 @@
     padding: 20px;
     border: 1px solid #f0f0f0;
     width: 100%;
+  }
+
+  .c-add-item {
+    display: flex;
+    width: 100%;
+
+    input {
+      width: 65%;
+    }
+    button {
+      width: 35%;
+    }
   }
 </style>

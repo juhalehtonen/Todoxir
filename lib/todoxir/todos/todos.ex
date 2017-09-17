@@ -19,7 +19,7 @@ defmodule Todoxir.Todos do
   """
   def list_todos do
     query = from t in Todo,
-      order_by: [t.complete, t.name]
+      order_by: [t.name]
 
     Repo.all(query)
     #Repo.all(Todo)

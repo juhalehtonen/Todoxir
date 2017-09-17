@@ -1,23 +1,22 @@
 <template>
   <article class="c-todo-items__item" v-bind:class="{ complete: complete }">
 
-    <input type="checkbox" v-bind:checked="complete" v-on:click="toggleComplete" />
-
     <input
          v-if="is_editing"
          v-model.trim="name"
-         @keyup.enter="submit"
+         @keyup.enter="updateTodo"
          type="text"
          class="c-todo-items__item__input"
          placeholder="Todo"
     />
-    <p v-else class="c-todo-items__item__title" v-bind:class="{ complete: complete }">
+    <p v-else class="c-todo-items__item__title" v-bind:class="{ complete: complete }" v-on:click="toggleComplete">
       {{name}}
     </p>
 
     <!-- Buttons -->
     <div class="c-todo-items__item__buttons">
       <button v-if="is_editing" v-on:click="saveEdit">Save</button>
+      <button v-if="is_editing" v-on:click="deleteTodo">Delete</button>
       <button v-on:click="toggleEdit">Toggle edit</button>
     </div>
 
@@ -50,21 +49,38 @@
 
       toggleComplete () {
         this.complete = !this.complete
-        this.submit()
+        this.updateTodo()
       },
 
       saveEdit () {
         this.toggleEdit()
-        this.submit()
+        this.updateTodo()
       },
 
-      submit () {
+      updateTodo () {
         // Update todo
         this.$http.patch(`todos/${this.todo.id}`, {
           todo: { name: this.name, complete: this.complete }
         }).then((response) => {
           // Success
           this.error = null
+        }, (response) => {
+          // Error
+          return response.json()
+        }).then((data) => {
+          // Show error message
+          if (data) {
+            this.error = data.errors[0]
+          }
+        })
+      },
+
+      deleteTodo () {
+        // delete todo
+        this.$http.delete(`todos/${this.todo.id}`).then((response) => {
+          // Success
+          this.error = null
+          this.toggleEdit()
         }, (response) => {
           // Error
           return response.json()
@@ -83,6 +99,12 @@
 <style lang="sass">
   .c-todo-items__item {
     display: flex;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &.complete {
+      opacity: 0.5;
+    }
 
     &__input,
     &__title {
@@ -94,8 +116,5 @@
       text-align: right;
     }
 
-    &.complete {
-      opacity: 0.75;
-    }
   }
 </style>
