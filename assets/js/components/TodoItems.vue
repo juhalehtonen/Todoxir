@@ -1,10 +1,9 @@
 <template>
-  <div>
-    todoitems.vue
-    <todo-item v-for="item in items">lol</todo-item>
-  </div>
+  <ul>
+    <todo-item v-for="todo in todos" :todo="todo"></todo-item>
+  </ul>
 </template>
- 
+
 <script>
   /*
   Every component instance has its own isolated scope. This means you cannot
@@ -14,7 +13,7 @@
   import TodoItem from './TodoItem.vue'
   export default {
     props: {
-      items: {
+      todos: {
         type: Array,
         default () {
           return []

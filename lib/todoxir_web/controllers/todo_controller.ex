@@ -6,10 +6,19 @@ defmodule TodoxirWeb.TodoController do
 
   action_fallback TodoxirWeb.FallbackController
 
+  # HTML Scaffolding
+  
   def index(conn, _params) do
     todos = Todos.list_todos()
-    render(conn, "index.json", todos: todos)
+    render(conn, "index.html", todos: todos)
   end
+
+  def show(conn, %{"id" => id}) do
+    todo = Todos.get_todo!(id)
+    render(conn, "show.html", todo: todo)
+  end
+
+  # JSON Scaffolding
 
   def create(conn, %{"todo" => todo_params}) do
     with {:ok, %Todo{} = todo} <- Todos.create_todo(todo_params) do
@@ -18,11 +27,6 @@ defmodule TodoxirWeb.TodoController do
       |> put_resp_header("location", todo_path(conn, :show, todo))
       |> render("show.json", todo: todo)
     end
-  end
-
-  def show(conn, %{"id" => id}) do
-    todo = Todos.get_todo!(id)
-    render(conn, "show.json", todo: todo)
   end
 
   def update(conn, %{"id" => id, "todo" => todo_params}) do

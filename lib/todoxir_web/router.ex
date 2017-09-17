@@ -17,12 +17,13 @@ defmodule TodoxirWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    resources "/todos", TodoController, only: [:index]
   end
 
   #Other scopes may use custom stacks.
   scope "/api", TodoxirWeb do
     pipe_through :api
-    
+
     resources "/todos", TodoController, except: [:new, :edit]
   end
 end

@@ -1,14 +1,21 @@
 <template>
-  <img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" />
+  <li>{{name}}</li>
 </template>
 
 <script>
   export default {
-    data () { 
+    data () {
       return {
+        name: this.todo.name
       }
     },
-    props: ['item'],
+
+    props: ['todo'],
+
+    computed: {
+    
+    },
+
     methods: {
     }
   }
