@@ -7,8 +7,8 @@
              v-for="(todo, index) in sortedTodos"
              :todo="todo"
              v-bind:key="todo.name"
-             v-on:delete-todo="deleteThisTodo(todo)"
-             v-on:update-todo="updateTodo(index)">
+             v-on:delete-todo="deleteTodo(todo)"
+             v-on:update-todo="updateTodo(todo)">
           </todo-item>
       </transition-group>
     </div>
@@ -91,14 +91,14 @@
         })
       },
 
-      deleteThisTodo: function(todo) {
+      deleteTodo: function(todo) {
         this.todoItems = this.todoItems.filter(function( obj ) {
-          return obj.name !== todo.name;
+          return obj.id !== todo.id;
         })
       },
 
-      updateTodo: function(index) {
-          console.log(index)
+      updateTodo: function(todo) {
+        console.log(todo)
       }
 
     }
