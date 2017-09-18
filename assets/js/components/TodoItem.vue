@@ -16,7 +16,7 @@
     <!-- Buttons -->
     <div class="c-todo-items__item__buttons">
       <button v-if="is_editing" v-on:click="saveEdit">Save</button>
-      <button v-if="is_editing" v-on:click="deleteTodo">Delete</button>
+      <button v-on:click="deleteTodo">Delete</button>
       <button v-on:click="toggleEdit">Toggle edit</button>
     </div>
 
@@ -79,6 +79,7 @@
         // delete todo
         this.$http.delete(`todos/${this.todo.id}`).then((response) => {
           // Success
+          this.$emit('delete-todo')
           this.error = null
           this.toggleEdit()
         }, (response) => {

@@ -3,7 +3,12 @@
 
     <div class="c-todo-items">
       <transition-group name="fade">
-      <todo-item v-for="todo in sortedTodos" :todo="todo" v-bind:key="todo.name"></todo-item>
+          <todo-item
+             v-for="(todo, index) in sortedTodos"
+             :todo="todo"
+             v-bind:key="todo.name"
+             v-on:delete-todo="deleteThisTodo(index)">
+          </todo-item>
       </transition-group>
     </div>
 
@@ -73,7 +78,13 @@
             this.error = data.errors[0]
           }
         })
+      },
+
+      deleteThisTodo: function(index) {
+        console.log("Received index: " + index)
+        this.todoItems.splice(index, 1);
       }
+
     }
   }
 </script>
