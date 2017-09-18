@@ -13,12 +13,29 @@
 alias Todoxir.Repo
 alias Todoxir.Todos.Todo
 
-Repo.insert! %Todo{
-  name: "Make this work",
-  complete: false
-}
+todos = [
+  %Todo{
+    name: "Create the project",
+    complete: true
+  },
+  %Todo{
+    name: "Read the Vue docs",
+    complete: true
+  },
+  %Todo{
+    name: "Make this work",
+    complete: false
+  },
+  %Todo{
+    name: "Open Source all the things",
+    complete: false
+  },
+  %Todo{
+    name: "Visit Trelixir",
+    complete: false
+  }
+]
 
-Repo.insert! %Todo{
-  name: "Create the project",
-  complete: true
-}
+for todo <- todos  do
+  Repo.insert! todo
+end
