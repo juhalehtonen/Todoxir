@@ -122,6 +122,17 @@
       }
   }
 
+  @keyframes drop-out {
+    0% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+  }
+
   .c-todo-items__item {
     display: flex;
     cursor: pointer;
@@ -135,7 +146,7 @@
         animation-timing-function: ease-in;
     }
     &.fade-leave-active {
-        animation: scale-out 0.5s;
+        animation: drop-out 0.2s;
     }
     /* Transition for when items make space for a change in a list */
     &.fade-move {
