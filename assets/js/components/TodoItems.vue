@@ -18,6 +18,8 @@
       <button v-on:click="addTodo">Add Todo</button>
     </div>
 
+    <pre>{{todoItems}}</pre>
+
   </section>
 </template>
 
@@ -97,8 +99,8 @@
         })
       },
 
-      updateTodo: function(todo) {
-        console.log(todo)
+      updateTodo: function(todo, index) {
+        todo.complete = !todo.complete
       }
 
     }
