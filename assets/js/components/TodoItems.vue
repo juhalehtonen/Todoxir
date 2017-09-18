@@ -47,8 +47,9 @@
 
     computed: {
       sortedTodos() {
-        return this.todoItems.slice().reverse().sort(function(a, b){
-            return b.name.length-a.name.length
+        return this.todoItems.slice().sort(function(a, b){
+            //return b.name.length-a.name.length
+            return (a.complete === b.complete)? 0 : a.complete? 1 : -1
         })
       }
     },

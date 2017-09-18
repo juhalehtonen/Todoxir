@@ -108,7 +108,7 @@
         opacity: 1;
     }
   }
-    
+
   @keyframes scale-out {
       0% {
           transform: scale(1);
@@ -129,7 +129,7 @@
     &.fade-enter-active {
         box-shadow: 0px 0px 16px rgba(25,25,25,0.1);
         z-index: 1;
-        animation: fade-in 0.2s;
+        animation: fade-in 0.3s;
         animation-timing-function: ease-in;
     }
     &.fade-leave-active {

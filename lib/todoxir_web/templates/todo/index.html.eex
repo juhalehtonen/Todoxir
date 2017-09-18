@@ -1,2 +1,1 @@
-<h2>Todo items</h2>
 <todo-items :todos="<%= todos_json(@todos) %>"></todo-items>
