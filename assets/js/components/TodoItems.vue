@@ -53,9 +53,6 @@
     computed: {
       sortedTodos() {
         return this.todoItems.slice().sort(function(a, b){
-            //return b.name.length-a.name.length
-            //return (a.complete === b.complete)? 0 : a.complete? 1 : -1
-            
             var nameorder = a.name === b.name ? 0 : (a.name < b.name ? -1 : 1);
             if(
                 (a.complete && b.complete) ||

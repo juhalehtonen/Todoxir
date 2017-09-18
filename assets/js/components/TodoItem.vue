@@ -57,6 +57,7 @@
         this.updateTodo()
       },
 
+      // TODO: Emit an event to parent and handle the updates there
       updateTodo () {
         // Update todo
         this.$http.patch(`todos/${this.todo.id}`, {
