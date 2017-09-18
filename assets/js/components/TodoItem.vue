@@ -64,6 +64,7 @@
           todo: { name: this.name, complete: this.complete }
         }).then((response) => {
           // Success
+          this.$emit('update-todo')
           this.error = null
         }, (response) => {
           // Error
